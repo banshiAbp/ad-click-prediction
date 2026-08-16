@@ -1,56 +1,271 @@
+<p align="center">
+  <img src="docs/assets/project_banner.png" width="100%" alt="Ad click prediction project banner">
+</p>
+
 # Ad Click Prediction
 
-This project builds an intelligent click-through rate (CTR) prediction system using user, campaign, product, webpage, and device-context data. The business goal is to predict which ad impressions are likely to receive genuine user clicks, helping advertisers reduce wasted spend, improve targeting quality, and balance false positives against missed click opportunities.
+An end-to-end machine learning case study that predicts rare ad clicks from
+user, product, campaign, webpage, and temporal context. The project turns an
+imbalanced digital-advertising dataset into business-ready CTR insights,
+model comparisons, test predictions, and a compact submission PDF.
 
-## Problem Context
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![scikit-learn](https://img.shields.io/badge/scikit--learn-Classification-F7931E?logo=scikitlearn&logoColor=white)](https://scikit-learn.org/)
+[![XGBoost](https://img.shields.io/badge/XGBoost-Weighted%20Classifier-FF6600)](https://xgboost.readthedocs.io/)
+[![Pandas](https://img.shields.io/badge/Pandas-Feature%20Engineering-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Jupyter](https://img.shields.io/badge/Jupyter-Case%20Study-F37626?logo=jupyter&logoColor=white)](ad_click_prediction_case_study.ipynb)
+[![Report](https://img.shields.io/badge/Submission-PDF-B91C1C)](ad_click_prediction_case_study_submission.pdf)
+[![Last Commit](https://img.shields.io/github/last-commit/banshiAbp/ad-click-prediction)](https://github.com/banshiAbp/ad-click-prediction/commits/main)
 
-Digital advertising datasets are highly imbalanced because most ad impressions do not receive clicks. This project treats ad-click prediction as a binary classification problem and focuses on business-relevant metrics such as ROC-AUC, PR-AUC, F1-score, precision, recall, and confusion-matrix trade-offs.
+> **Verified outcome:** The final temporal-holdout model selection favored
+> **Random Forest with class balancing and a tuned threshold**. It achieved
+> **ROC-AUC 0.574**, **F1 0.142**, **recall 0.560**, and **precision 0.081**
+> on the latest-day validation window. The low precision is expected for a
+> rare-click problem with a training click rate of only **6.76%**.
 
-## Files
+## Why This Project?
 
-- `Ad_click_prediction_train (1).csv` - training dataset with the `is_click` target.
-- `Ad_Click_prediciton_test.csv` - test dataset for final scoring.
-- `Click-Through Rate (CTR) Prediction Project.pdf` - original approach/problem document.
-- `ad_click_prediction_case_study.ipynb` - executed consolidated notebook with data preparation, feature engineering, modeling, evaluation, and recommendations.
-- `ad_click_prediction_case_study_submission.pdf` - final compact submission PDF.
-- `ad_click_prediction_test_predictions.csv` - generated test-set click probabilities and predicted labels.
+Digital advertising is a high-volume, low-click environment. Most impressions
+do not lead to clicks, yet each irrelevant impression can waste budget and
+degrade user experience. A useful CTR model must do more than predict the
+majority class: it must identify subtle click-propensity patterns while
+managing false positives and false negatives.
 
-## Approach
+This project builds a reproducible classification workflow that answers both
+technical and business questions: which products perform best, whether weekends
+behave differently, which user profiles show stronger click intent, whether
+personalized features improve signal, and whether SMOTE is worth the extra
+training footprint for real-time ad serving.
 
-The solution follows the structure used in the earlier `Predicting-Sales-from-Campaign-Data` project:
+## Project Highlights
 
-1. Load and validate train/test datasets.
-2. Parse temporal features from `DateTime`.
-3. Engineer contextual and personalized features, including smoothed CTR aggregates.
-4. Use temporal validation to mimic future ad-serving conditions.
-5. Compare balanced Logistic Regression, balanced Random Forest, weighted XGBoost, and a lightweight SMOTE-style experiment.
-6. Select the best model using F1/recall-oriented validation metrics.
-7. Generate test predictions and translate findings into business recommendations.
+- Temporal validation that mimics future ad-serving conditions
+- Time features from impression timestamp: hour, weekday, weekend, night, and business-hour flags
+- Personalized interaction features: user-product, campaign-product, and webpage-product context
+- Smoothed historical CTR aggregates for products, campaigns, webpages, user groups, categories, and segments
+- Missing-value handling and categorical encoding inside reproducible sklearn pipelines
+- Comparison of balanced Logistic Regression, balanced Random Forest, weighted XGBoost, and lightweight SMOTE-style sampling
+- Threshold tuning focused on F1 and recall for rare click detection
+- Product CTR, profile CTR, feature-importance, inventory, and bidding-strategy insights
+- Final session-level test predictions with click probabilities and predicted labels
+- Submission-ready PDF under both page and file-size limits
 
-## Key Business Questions Covered
+## Project Workflow
 
-- Weekend versus weekday click behavior.
-- Highest and lowest CTR products.
-- Impact of personalized user-product and campaign-product interaction features.
-- Feature drivers behind clicks, including CTR aggregates and placement context.
-- SMOTE trade-offs for rare click events and real-time serving.
-- Product CTR usage for inventory forecasting.
-- High-propensity user profiles for bid adjustment strategies.
+```mermaid
+flowchart LR
+    A[Raw Ad Impression Data] --> B[Data Quality Review]
+    B --> C[Temporal Feature Engineering]
+    C --> D[CTR Aggregates and Interactions]
+    D --> E[Imbalance Handling]
+    E --> F[Model Comparison]
+    F --> G[Threshold Tuning]
+    G --> H[Business Interpretation]
+    H --> I[Test Predictions and PDF]
+```
 
-## Outputs
+## Operations Performed
 
-The final PDF is intentionally concise and submission-ready:
+| Stage | Operations |
+|---|---|
+| Data loading | Imported train/test CSV files and parsed `DateTime` |
+| Data understanding | Checked shape, target imbalance, missingness, unique values, and train/test structure |
+| Feature engineering | Added temporal flags, personalized interaction keys, and smoothed CTR aggregate features |
+| Preprocessing | Imputed categorical/numeric fields, one-hot encoded categories, and scaled numeric CTR features |
+| Validation design | Used older dates for development and latest date as holdout validation |
+| Imbalance strategy | Compared class weighting, threshold tuning, and lightweight SMOTE-style oversampling |
+| Model training | Trained Logistic Regression, Random Forest, and XGBoost classifiers |
+| Evaluation | Compared ROC-AUC, PR-AUC, F1, precision, recall, TP, FP, TN, and FN |
+| Interpretability | Reviewed feature-importance groups and business-level CTR tables |
+| Business output | Answered product, weekend, profile, SMOTE, bidding, and inventory questions |
+| Submission | Generated consolidated notebook, compact PDF, charts, artifacts, and test predictions |
 
-- `11` pages.
-- Approximately `0.13 MB`.
-- Below the required `50` page and `20 MB` limits.
+## Dataset
 
-## Reproducibility
+| Split | Rows | Columns | Purpose |
+|---|---:|---:|---|
+| Training | 463,291 | 15 | Model development, temporal validation, feature engineering, and final training |
+| Test | 128,858 | 14 | Final ad-click probability scoring |
 
-Run the notebook from this folder after installing the required Python ML stack used in the workspace:
+Target: `is_click`
+
+Observed training click rate: **6.76%**
+
+Core fields include:
+
+- `session_id`
+- `DateTime`
+- `user_id`
+- `product`
+- `campaign_id`
+- `webpage_id`
+- `product_category_1`
+- `product_category_2`
+- `user_group_id`
+- `gender`
+- `age_level`
+- `user_depth`
+- `city_development_index`
+- `var_1`
+
+The original dataset is referenced in the project requirement as:
+[Ad click prediction data](https://drive.google.com/drive/folders/1ySbTboXX1_gzWexW8AsvFFy313uEaDnh?usp=sharing)
+
+## Final Results
+
+| Model | Threshold | ROC-AUC | PR-AUC | F1 | Precision | Recall |
+|---|---:|---:|---:|---:|---:|---:|
+| **Random Forest - balanced - tuned threshold** | **0.458** | **0.574** | 0.074 | **0.142** | 0.081 | 0.560 |
+| XGBoost - weighted - tuned threshold | 0.476 | 0.566 | **0.076** | 0.138 | 0.080 | 0.488 |
+| Logistic Regression - balanced - tuned threshold | 0.072 | 0.576 | 0.075 | 0.133 | 0.074 | **0.654** |
+
+The final selected model favors the best F1 balance on the temporal holdout.
+Logistic Regression produced higher recall, but at a larger false-positive cost.
+This makes Random Forest the more balanced choice for the submitted operating
+point.
+
+## Business Questions Answered
+
+### Weekend vs Weekday Users
+
+Weekend and weekday CTR were compared directly. The weekend signal is useful as
+a monitored bid modifier, but it should not be used as a standalone targeting
+rule without live stability checks.
+
+### Product CTR Performance
+
+Products were ranked by historical CTR and expected clicks per 100,000
+impressions. High-CTR products can receive more reserved inventory, while
+low-performing products should be reviewed for creative quality, targeting fit,
+or landing-page mismatch.
+
+### Personalized Feature Impact
+
+User-product, campaign-product, and webpage-product interaction features help
+capture affinity and context that raw IDs cannot express alone. These features
+are especially valuable in ad-tech because user intent often emerges from
+combinations of user profile, product, campaign, and placement.
+
+### Feature Importance
+
+CTR aggregate features and contextual placement variables are the most useful
+feature families. They can be amplified through bid multipliers, placement
+quality monitoring, product-level creative refreshes, and segment-specific
+campaign rules.
+
+### SMOTE Trade-Off
+
+SMOTE-style oversampling can improve rare-event sensitivity in offline
+experiments, but it increases training data size and may complicate real-time
+refresh workflows. For production ad serving, class weighting plus threshold
+tuning is the preferred first-line strategy.
+
+### Inventory Forecasting
+
+Aggregated product CTR can forecast expected clicks for a planned block of
+impressions. Products with higher expected clicks per inventory block should
+receive stronger inventory reservations and faster creative iteration.
+
+### User Profile Strategy
+
+High-propensity user profiles by age, gender, and city development index can
+inform bid adjustments. These recommendations should use minimum-volume
+thresholds and should be monitored for fairness, privacy, and drift.
+
+## Generated Artifacts
+
+| File | Description |
+|---|---|
+| `ad_click_prediction_case_study.ipynb` | Executed consolidated notebook |
+| `ad_click_prediction_case_study_submission.pdf` | Final submission PDF |
+| `ad_click_prediction_test_predictions.csv` | Test click probabilities and predicted labels |
+| `ctr_artifacts.json` | Model metrics and business insight snapshot |
+| `product_ctr.png` | Product CTR chart |
+| `model_f1.png` | Model F1 comparison chart |
+| `feature_importance.png` | Feature importance chart |
+
+Submission PDF checks:
+
+- **11 pages**
+- **0.13 MB**
+- Below the required **50-page** and **20 MB** limits
+
+## Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/banshiAbp/ad-click-prediction.git
+cd ad-click-prediction
+```
+
+### 2. Create and activate an environment
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment:
+
+```bash
+# Windows PowerShell
+.\.venv\Scripts\Activate.ps1
+
+# macOS/Linux
+source .venv/bin/activate
+```
+
+### 3. Install dependencies
+
+```bash
+pip install pandas numpy scikit-learn xgboost matplotlib seaborn pypdf nbformat nbconvert jupyter
+```
+
+### 4. Run the complete case study
 
 ```bash
 jupyter notebook ad_click_prediction_case_study.ipynb
 ```
 
-The notebook writes `ad_click_prediction_test_predictions.csv` after fitting the final model.
+Run all cells from top to bottom. The notebook performs data preparation,
+feature engineering, model comparison, threshold tuning, business analysis,
+chart generation, and final test prediction export.
+
+## Repository Structure
+
+```text
+.
+|-- docs/assets/
+|   `-- project_banner.png
+|-- Ad_click_prediction_train (1).csv
+|-- Ad_Click_prediciton_test.csv
+|-- Click-Through Rate (CTR) Prediction Project.pdf
+|-- ad_click_prediction_case_study.ipynb
+|-- ad_click_prediction_case_study_submission.pdf
+|-- ad_click_prediction_test_predictions.csv
+|-- ctr_artifacts.json
+|-- feature_importance.png
+|-- model_f1.png
+|-- product_ctr.png
+`-- README.md
+```
+
+## Strategic Recommendations
+
+- Rank impressions by predicted click probability and tune thresholds by campaign budget.
+- Use bid multipliers for high-CTR product, webpage, campaign, and qualified profile segments.
+- Reserve more inventory for products with higher expected clicks per 100,000 impressions.
+- Monitor recall, precision, F1, PR-AUC, calibration, and feature drift weekly.
+- Keep SMOTE for offline experimentation; prefer class weighting and threshold tuning for production refreshes.
+- A/B test personalized CTR features against a non-personalized baseline before deployment.
+
+## Submission Note
+
+The final deliverable is the PDF file:
+
+```text
+ad_click_prediction_case_study_submission.pdf
+```
+
+The notebook and generated artifacts are included for reproducibility and later
+iteration.
