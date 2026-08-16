@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/project_banner.png" width="100%" alt="Ad click prediction project banner">
+  <img src="assets/images/project_banner.png" width="100%" alt="Ad click prediction project banner">
 </p>
 
 # Ad Click Prediction
@@ -14,7 +14,7 @@ model comparisons, test predictions, and a compact submission PDF.
 [![XGBoost](https://img.shields.io/badge/XGBoost-Weighted%20Classifier-FF6600)](https://xgboost.readthedocs.io/)
 [![Pandas](https://img.shields.io/badge/Pandas-Feature%20Engineering-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 [![Jupyter](https://img.shields.io/badge/Jupyter-Case%20Study-F37626?logo=jupyter&logoColor=white)](ad_click_prediction_case_study.ipynb)
-[![Report](https://img.shields.io/badge/Submission-PDF-B91C1C)](ad_click_prediction_case_study_submission.pdf)
+[![Report](https://img.shields.io/badge/Submission-PDF-B91C1C)](reports/ad_click_prediction_case_study_submission.pdf)
 [![Last Commit](https://img.shields.io/github/last-commit/banshiAbp/ad-click-prediction)](https://github.com/banshiAbp/ad-click-prediction/commits/main)
 
 > **Verified outcome:** The final temporal-holdout model selection favored
@@ -111,6 +111,16 @@ Core fields include:
 The original dataset is referenced in the project requirement as:
 [Ad click prediction data](https://drive.google.com/drive/folders/1ySbTboXX1_gzWexW8AsvFFy313uEaDnh?usp=sharing)
 
+## Project Structure Philosophy
+
+The repository now follows a clean, industry-style ML layout:
+
+- `assets/data/` stores raw source datasets and project input documents.
+- `assets/images/` stores README visuals and generated chart assets.
+- `outputs/` stores machine-generated prediction files and metric snapshots.
+- `reports/` stores final presentation/submission documents.
+- The root stays focused on the executable notebook and project documentation.
+
 ## Final Results
 
 | Model | Threshold | ROC-AUC | PR-AUC | F1 | Precision | Recall |
@@ -177,12 +187,12 @@ thresholds and should be monitored for fairness, privacy, and drift.
 | File | Description |
 |---|---|
 | `ad_click_prediction_case_study.ipynb` | Executed consolidated notebook |
-| `ad_click_prediction_case_study_submission.pdf` | Final submission PDF |
-| `ad_click_prediction_test_predictions.csv` | Test click probabilities and predicted labels |
-| `ctr_artifacts.json` | Model metrics and business insight snapshot |
-| `product_ctr.png` | Product CTR chart |
-| `model_f1.png` | Model F1 comparison chart |
-| `feature_importance.png` | Feature importance chart |
+| `reports/ad_click_prediction_case_study_submission.pdf` | Final submission PDF |
+| `outputs/ad_click_prediction_test_predictions.csv` | Test click probabilities and predicted labels |
+| `outputs/ctr_artifacts.json` | Model metrics and business insight snapshot |
+| `assets/images/product_ctr.png` | Product CTR chart |
+| `assets/images/model_f1.png` | Model F1 comparison chart |
+| `assets/images/feature_importance.png` | Feature importance chart |
 
 Submission PDF checks:
 
@@ -235,18 +245,22 @@ chart generation, and final test prediction export.
 
 ```text
 .
-|-- docs/assets/
-|   `-- project_banner.png
-|-- Ad_click_prediction_train (1).csv
-|-- Ad_Click_prediciton_test.csv
-|-- Click-Through Rate (CTR) Prediction Project.pdf
+|-- assets/
+|   |-- data/
+|   |   |-- Ad_click_prediction_train (1).csv
+|   |   |-- Ad_Click_prediciton_test.csv
+|   |   `-- Click-Through Rate (CTR) Prediction Project.pdf
+|   `-- images/
+|       |-- project_banner.png
+|       |-- feature_importance.png
+|       |-- model_f1.png
+|       `-- product_ctr.png
+|-- outputs/
+|   |-- ad_click_prediction_test_predictions.csv
+|   `-- ctr_artifacts.json
+|-- reports/
+|   `-- ad_click_prediction_case_study_submission.pdf
 |-- ad_click_prediction_case_study.ipynb
-|-- ad_click_prediction_case_study_submission.pdf
-|-- ad_click_prediction_test_predictions.csv
-|-- ctr_artifacts.json
-|-- feature_importance.png
-|-- model_f1.png
-|-- product_ctr.png
 `-- README.md
 ```
 
@@ -264,7 +278,7 @@ chart generation, and final test prediction export.
 The final deliverable is the PDF file:
 
 ```text
-ad_click_prediction_case_study_submission.pdf
+reports/ad_click_prediction_case_study_submission.pdf
 ```
 
 The notebook and generated artifacts are included for reproducibility and later
