@@ -1,0 +1,384 @@
+{
+  "train_shape": [
+    463291,
+    15
+  ],
+  "test_shape": [
+    128858,
+    14
+  ],
+  "click_rate": 0.06762704218299082,
+  "metrics": [
+    {
+      "model": "Random Forest - balanced - tuned threshold",
+      "threshold": 0.4583544303797469,
+      "roc_auc": 0.5738014866964027,
+      "pr_auc": 0.07382678818328588,
+      "f1": 0.14168342430336112,
+      "precision": 0.08109441283830444,
+      "recall": 0.5603271983640081,
+      "tn": 39122,
+      "fp": 27943,
+      "fn": 1935,
+      "tp": 2466
+    },
+    {
+      "model": "XGBoost - weighted - tuned threshold",
+      "threshold": 0.4762025316455696,
+      "roc_auc": 0.5664224865833597,
+      "pr_auc": 0.07599932970994913,
+      "f1": 0.13811745776347548,
+      "precision": 0.0804528754592487,
+      "recall": 0.48761645080663485,
+      "tn": 42537,
+      "fp": 24528,
+      "fn": 2255,
+      "tp": 2146
+    },
+    {
+      "model": "XGBoost - weighted",
+      "threshold": 0.5,
+      "roc_auc": 0.5664224865833597,
+      "pr_auc": 0.07599932970994913,
+      "f1": 0.13521315316069113,
+      "precision": 0.08286329607219772,
+      "recall": 0.36718927516473526,
+      "tn": 49179,
+      "fp": 17886,
+      "fn": 2785,
+      "tp": 1616
+    },
+    {
+      "model": "Random Forest - balanced",
+      "threshold": 0.5,
+      "roc_auc": 0.5738014866964027,
+      "pr_auc": 0.07382678818328588,
+      "f1": 0.1343024588285368,
+      "precision": 0.07845612424451075,
+      "recall": 0.46603044762553963,
+      "tn": 42974,
+      "fp": 24091,
+      "fn": 2350,
+      "tp": 2051
+    },
+    {
+      "model": "Logistic Regression - balanced - tuned threshold",
+      "threshold": 0.07164556962025316,
+      "roc_auc": 0.5764256183482289,
+      "pr_auc": 0.07496597316954656,
+      "f1": 0.13293330256173552,
+      "precision": 0.07398083690821752,
+      "recall": 0.65439672801636,
+      "tn": 31016,
+      "fp": 36049,
+      "fn": 1521,
+      "tp": 2880
+    },
+    {
+      "model": "Logistic Regression - balanced",
+      "threshold": 0.5,
+      "roc_auc": 0.5764256183482289,
+      "pr_auc": 0.07496597316954656,
+      "f1": 0.07787869297421443,
+      "precision": 0.0720355349555813,
+      "recall": 0.08475346512156329,
+      "tn": 62260,
+      "fp": 4805,
+      "fn": 4028,
+      "tp": 373
+    }
+  ],
+  "smote_result": {
+    "model": "Logistic Regression - lightweight SMOTE sample",
+    "threshold": 0.035949367088607596,
+    "roc_auc": 0.5717891765752119,
+    "pr_auc": 0.07440584236675885,
+    "f1": 0.1325923828401529,
+    "precision": 0.07852920212988973,
+    "recall": 0.42558509429675073,
+    "tn": 45087,
+    "fp": 21978,
+    "fn": 2528,
+    "tp": 1873
+  },
+  "best_model": "XGBoost - weighted",
+  "best_threshold": 0.4762025316455696,
+  "business": {
+    "weekend_ctr": [
+      {
+        "is_weekend": 0,
+        "mean": 0.06646783570941532,
+        "sum": 25540,
+        "count": 384246
+      },
+      {
+        "is_weekend": 1,
+        "mean": 0.07326206591182238,
+        "sum": 5791,
+        "count": 79045
+      }
+    ],
+    "product_ctr": [
+      {
+        "product": "J",
+        "mean": 0.092699525675397,
+        "sum": 899,
+        "count": 9698
+      },
+      {
+        "product": "D",
+        "mean": 0.07181472822910578,
+        "sum": 2949,
+        "count": 41064
+      },
+      {
+        "product": "H",
+        "mean": 0.06985233723328527,
+        "sum": 7654,
+        "count": 109574
+      },
+      {
+        "product": "C",
+        "mean": 0.06914942416254335,
+        "sum": 11306,
+        "count": 163501
+      },
+      {
+        "product": "E",
+        "mean": 0.06871154204736155,
+        "sum": 1474,
+        "count": 21452
+      },
+      {
+        "product": "I",
+        "mean": 0.06402348103153302,
+        "sum": 4079,
+        "count": 63711
+      },
+      {
+        "product": "A",
+        "mean": 0.061919303489052044,
+        "sum": 953,
+        "count": 15391
+      },
+      {
+        "product": "B",
+        "mean": 0.055073624271542325,
+        "sum": 1238,
+        "count": 22479
+      },
+      {
+        "product": "F",
+        "mean": 0.04909376337947766,
+        "sum": 344,
+        "count": 7007
+      },
+      {
+        "product": "G",
+        "mean": 0.046207775653282344,
+        "sum": 435,
+        "count": 9414
+      }
+    ],
+    "profile_ctr": [
+      {
+        "gender": "Male",
+        "age_level": 5.0,
+        "city_development_index": 4.0,
+        "mean": 0.0865874363327674,
+        "sum": 255,
+        "count": 2945
+      },
+      {
+        "gender": "Female",
+        "age_level": 5.0,
+        "city_development_index": 4.0,
+        "mean": 0.0846740050804403,
+        "sum": 100,
+        "count": 1181
+      },
+      {
+        "gender": "Male",
+        "age_level": 1.0,
+        "city_development_index": 2.0,
+        "mean": 0.0763696036354456,
+        "sum": 605,
+        "count": 7922
+      },
+      {
+        "gender": "Female",
+        "age_level": 5.0,
+        "city_development_index": 2.0,
+        "mean": 0.0755813953488372,
+        "sum": 208,
+        "count": 2752
+      },
+      {
+        "gender": "Male",
+        "age_level": 2.0,
+        "city_development_index": 2.0,
+        "mean": 0.07411374952885398,
+        "sum": 3736,
+        "count": 50409
+      },
+      {
+        "gender": "Male",
+        "age_level": 1.0,
+        "city_development_index": 3.0,
+        "mean": 0.0732119165360029,
+        "sum": 607,
+        "count": 8291
+      },
+      {
+        "gender": "Male",
+        "age_level": 1.0,
+        "city_development_index": 4.0,
+        "mean": 0.07196613358419568,
+        "sum": 306,
+        "count": 4252
+      },
+      {
+        "gender": "Male",
+        "age_level": 5.0,
+        "city_development_index": 3.0,
+        "mean": 0.07109390914646567,
+        "sum": 349,
+        "count": 4909
+      },
+      {
+        "gender": "Male",
+        "age_level": 2.0,
+        "city_development_index": 3.0,
+        "mean": 0.06963969498753207,
+        "sum": 1927,
+        "count": 27671
+      },
+      {
+        "gender": "Male",
+        "age_level": 5.0,
+        "city_development_index": 2.0,
+        "mean": 0.06931946006749157,
+        "sum": 493,
+        "count": 7112
+      }
+    ]
+  },
+  "product": [
+    {
+      "product": "J",
+      "clicks": 899,
+      "impressions": 9698,
+      "ctr": 0.092699525675397,
+      "expected_clicks_per_100k_impressions": 9269.9525675397
+    },
+    {
+      "product": "D",
+      "clicks": 2949,
+      "impressions": 41064,
+      "ctr": 0.07181472822910578,
+      "expected_clicks_per_100k_impressions": 7181.4728229105785
+    },
+    {
+      "product": "H",
+      "clicks": 7654,
+      "impressions": 109574,
+      "ctr": 0.06985233723328527,
+      "expected_clicks_per_100k_impressions": 6985.233723328527
+    },
+    {
+      "product": "C",
+      "clicks": 11306,
+      "impressions": 163501,
+      "ctr": 0.06914942416254335,
+      "expected_clicks_per_100k_impressions": 6914.9424162543355
+    },
+    {
+      "product": "E",
+      "clicks": 1474,
+      "impressions": 21452,
+      "ctr": 0.06871154204736155,
+      "expected_clicks_per_100k_impressions": 6871.1542047361545
+    },
+    {
+      "product": "I",
+      "clicks": 4079,
+      "impressions": 63711,
+      "ctr": 0.06402348103153302,
+      "expected_clicks_per_100k_impressions": 6402.348103153302
+    },
+    {
+      "product": "A",
+      "clicks": 953,
+      "impressions": 15391,
+      "ctr": 0.061919303489052044,
+      "expected_clicks_per_100k_impressions": 6191.9303489052045
+    },
+    {
+      "product": "B",
+      "clicks": 1238,
+      "impressions": 22479,
+      "ctr": 0.055073624271542325,
+      "expected_clicks_per_100k_impressions": 5507.362427154232
+    },
+    {
+      "product": "F",
+      "clicks": 344,
+      "impressions": 7007,
+      "ctr": 0.04909376337947766,
+      "expected_clicks_per_100k_impressions": 4909.376337947766
+    },
+    {
+      "product": "G",
+      "clicks": 435,
+      "impressions": 9414,
+      "ctr": 0.046207775653282344,
+      "expected_clicks_per_100k_impressions": 4620.777565328234
+    }
+  ],
+  "importance": [
+    {
+      "group": "user",
+      "importance": 0.5259926319122314
+    },
+    {
+      "group": "product",
+      "importance": 0.12413583695888519
+    },
+    {
+      "group": "hour",
+      "importance": 0.10417990386486053
+    },
+    {
+      "group": "campaign",
+      "importance": 0.07316635549068451
+    },
+    {
+      "group": "dayofweek",
+      "importance": 0.040926188230514526
+    },
+    {
+      "group": "is",
+      "importance": 0.03629689663648605
+    },
+    {
+      "group": "webpage",
+      "importance": 0.03575196489691734
+    },
+    {
+      "group": "age",
+      "importance": 0.026936404407024384
+    },
+    {
+      "group": "city",
+      "importance": 0.02124057337641716
+    },
+    {
+      "group": "var",
+      "importance": 0.007010865956544876
+    },
+    {
+      "group": "gender",
+      "importance": 0.004362382460385561
+    }
+  ]
+}
