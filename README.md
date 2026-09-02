@@ -17,11 +17,13 @@ model comparisons, test predictions, and a compact submission PDF.
 [![Report](https://img.shields.io/badge/Submission-PDF-B91C1C)](reports/ad_click_prediction_case_study_submission.pdf)
 [![Last Commit](https://img.shields.io/github/last-commit/banshiAbp/ad-click-prediction)](https://github.com/banshiAbp/ad-click-prediction/commits/main)
 
-> **Verified outcome:** The final temporal-holdout model selection favored
-> **Random Forest with class balancing and a tuned threshold**. It achieved
-> **ROC-AUC 0.574**, **F1 0.142**, **recall 0.560**, and **precision 0.081**
-> on the latest-day validation window. The low precision is expected for a
-> rare-click problem with a training click rate of only **6.76%**.
+> **Verified outcome:** After correcting target leakage in historical CTR
+> features, the final temporal-holdout model selection favored
+> **Logistic Regression with class balancing and a tuned threshold**. It achieved
+> **ROC-AUC 0.598**, **PR-AUC 0.082**, **F1 0.144**, **recall 0.461**, and
+> **precision 0.085** on the latest-day validation window. These results show
+> moderate discrimination, so the model should be used as a ranking/targeting aid
+> rather than a standalone automated decision system.
 
 ## Why This Project?
 
@@ -42,11 +44,11 @@ training footprint for real-time ad serving.
 - Temporal validation that mimics future ad-serving conditions
 - Time features from impression timestamp: hour, weekday, weekend, night, and business-hour flags
 - Personalized interaction features: user-product, campaign-product, and webpage-product context
-- Smoothed historical CTR aggregates for products, campaigns, webpages, user groups, categories, and segments
+- Leakage-safe cumulative historical CTR aggregates for products, campaigns, webpages, user groups, categories, and segments
 - Missing-value handling and categorical encoding inside reproducible sklearn pipelines
-- Comparison of balanced Logistic Regression, balanced Random Forest, weighted XGBoost, and lightweight SMOTE-style sampling
+- Comparison of always-negative/global-CTR baselines, balanced Logistic Regression, balanced Random Forest, and weighted XGBoost
 - Threshold tuning focused on F1 and recall for rare click detection
-- Product CTR, profile CTR, feature-importance, inventory, and bidding-strategy insights
+- Product CTR, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
 - Final session-level test predictions with click probabilities and predicted labels
 - Submission-ready PDF under both page and file-size limits
 
@@ -70,13 +72,13 @@ flowchart LR
 |---|---|
 | Data loading | Imported train/test CSV files and parsed `DateTime` |
 | Data understanding | Checked shape, target imbalance, missingness, unique values, and train/test structure |
-| Feature engineering | Added temporal flags, personalized interaction keys, and smoothed CTR aggregate features |
+| Feature engineering | Added temporal flags, personalized interaction keys, and leakage-safe cumulative historical CTR features |
 | Preprocessing | Imputed categorical/numeric fields, one-hot encoded categories, and scaled numeric CTR features |
 | Validation design | Used older dates for development and latest date as holdout validation |
-| Imbalance strategy | Compared class weighting, threshold tuning, and lightweight SMOTE-style oversampling |
+| Imbalance strategy | Compared baselines, class weighting, threshold tuning, and documented why SMOTENC is required for categorical oversampling |
 | Model training | Trained Logistic Regression, Random Forest, and XGBoost classifiers |
 | Evaluation | Compared ROC-AUC, PR-AUC, F1, precision, recall, TP, FP, TN, and FN |
-| Interpretability | Reviewed feature-importance groups and business-level CTR tables |
+| Interpretability | Reviewed top individual feature importances, feature ablation, and business-level CTR tables |
 | Business output | Answered product, weekend, profile, SMOTE, bidding, and inventory questions |
 | Submission | Generated consolidated notebook, compact PDF, charts, artifacts, and test predictions |
 
@@ -125,14 +127,14 @@ The repository now follows a clean, industry-style ML layout:
 
 | Model | Threshold | ROC-AUC | PR-AUC | F1 | Precision | Recall |
 |---|---:|---:|---:|---:|---:|---:|
-| **Random Forest - balanced - tuned threshold** | **0.458** | **0.574** | 0.074 | **0.142** | 0.081 | 0.560 |
-| XGBoost - weighted - tuned threshold | 0.476 | 0.566 | **0.076** | 0.138 | 0.080 | 0.488 |
-| Logistic Regression - balanced - tuned threshold | 0.072 | 0.576 | 0.075 | 0.133 | 0.074 | **0.654** |
+| **Logistic Regression - balanced - tuned threshold** | **0.488** | **0.598** | 0.082 | **0.144** | 0.085 | 0.461 |
+| Random Forest - balanced - tuned threshold | 0.488 | 0.598 | 0.082 | 0.143 | 0.084 | 0.490 |
+| XGBoost - weighted - tuned threshold | 0.500 | 0.594 | **0.083** | 0.141 | 0.082 | **0.502** |
 
-The final selected model favors the best F1 balance on the temporal holdout.
-Logistic Regression produced higher recall, but at a larger false-positive cost.
-This makes Random Forest the more balanced choice for the submitted operating
-point.
+The final selected model is the highest-F1 tuned-threshold classifier after the
+leakage-safe correction. XGBoost has slightly stronger PR-AUC and recall, while
+Logistic Regression has the best F1 and ROC-AUC in this run. Selection is based
+on the business need to balance precision and recall, not on ROC-AUC alone.
 
 ## Business Questions Answered
 
@@ -165,16 +167,18 @@ campaign rules.
 
 ### SMOTE Trade-Off
 
-SMOTE-style oversampling can improve rare-event sensitivity in offline
-experiments, but it increases training data size and may complicate real-time
-refresh workflows. For production ad serving, class weighting plus threshold
-tuning is the preferred first-line strategy.
+The notebook does not interpolate one-hot encoded categorical features because
+that would create invalid synthetic category mixtures. If oversampling is used,
+it should be done with a categorical-aware method such as SMOTENC before one-hot
+encoding. Since class weighting is simpler and avoids synthetic categorical
+records, it remains the preferred first-line training strategy.
 
-### Inventory Forecasting
+### Inventory Planning Signal
 
-Aggregated product CTR can forecast expected clicks for a planned block of
-impressions. Products with higher expected clicks per inventory block should
-receive stronger inventory reservations and faster creative iteration.
+Historical product CTR can be converted into expected clicks per 100,000
+impressions. This is an inventory-planning signal rather than a formal future
+demand forecast. Products with stronger expected-click rates should receive
+larger test budgets, closer inventory monitoring, and faster creative iteration.
 
 ### User Profile Strategy
 
@@ -192,12 +196,17 @@ thresholds and should be monitored for fairness, privacy, and drift.
 | `outputs/ctr_artifacts.json` | Model metrics and business insight snapshot |
 | `assets/images/product_ctr.png` | Product CTR chart |
 | `assets/images/model_f1.png` | Model F1 comparison chart |
-| `assets/images/feature_importance.png` | Feature importance chart |
+| `assets/images/feature_importance.png` | Top individual feature importance chart |
+| `assets/images/feature_ablation.png` | Feature ablation chart |
+| `assets/images/target_distribution.png` | Target imbalance chart |
+| `assets/images/pr_curve.png` | Precision-recall curve |
+| `assets/images/roc_curve.png` | ROC curve |
+| `assets/images/calibration_plot.png` | Calibration plot |
 
 Submission PDF checks:
 
-- **11 pages**
-- **0.13 MB**
+- Compact PDF report
+- Below `1 MB` in the current generated version
 - Below the required **50-page** and **20 MB** limits
 
 ## Quick Start
@@ -252,9 +261,14 @@ chart generation, and final test prediction export.
 |   |   `-- Click-Through Rate (CTR) Prediction Project.pdf
 |   `-- images/
 |       |-- project_banner.png
+|       |-- calibration_plot.png
+|       |-- feature_ablation.png
 |       |-- feature_importance.png
 |       |-- model_f1.png
-|       `-- product_ctr.png
+|       |-- pr_curve.png
+|       |-- product_ctr.png
+|       |-- roc_curve.png
+|       `-- target_distribution.png
 |-- outputs/
 |   |-- ad_click_prediction_test_predictions.csv
 |   `-- ctr_artifacts.json
@@ -270,7 +284,7 @@ chart generation, and final test prediction export.
 - Use bid multipliers for high-CTR product, webpage, campaign, and qualified profile segments.
 - Reserve more inventory for products with higher expected clicks per 100,000 impressions.
 - Monitor recall, precision, F1, PR-AUC, calibration, and feature drift weekly.
-- Keep SMOTE for offline experimentation; prefer class weighting and threshold tuning for production refreshes.
+- Use SMOTENC only for categorical-aware oversampling experiments; prefer class weighting and threshold tuning for production refreshes.
 - A/B test personalized CTR features against a non-personalized baseline before deployment.
 
 ## Submission Note
