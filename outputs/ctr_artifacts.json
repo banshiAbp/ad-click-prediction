@@ -8,89 +8,78 @@
     14
   ],
   "click_rate": 0.06762704218299082,
-  "temporal_cutoff": "2017-07-07",
+  "training_period_end_before": "2017-07-06",
+  "threshold_tuning_date": "2017-07-06",
+  "final_holdout_date": "2017-07-07",
   "metrics": [
-    {
-      "model": "Logistic Regression - balanced - tuned threshold",
-      "threshold": 0.4881012658227848,
-      "roc_auc": 0.5979113752384716,
-      "pr_auc": 0.08179050093733548,
-      "f1": 0.14363153232949513,
-      "precision": 0.08508226997985224,
-      "recall": 0.46057714155873664,
-      "tn": 45268,
-      "fp": 21797,
-      "fn": 2374,
-      "tp": 2027
-    },
-    {
-      "model": "Random Forest - balanced - tuned threshold",
-      "threshold": 0.4881012658227848,
-      "roc_auc": 0.5977483106943172,
-      "pr_auc": 0.08210548679332592,
-      "f1": 0.14323695579926887,
-      "precision": 0.08388804546693138,
-      "recall": 0.489661440581686,
-      "tn": 43531,
-      "fp": 23534,
-      "fn": 2246,
-      "tp": 2155
-    },
-    {
-      "model": "Random Forest - balanced",
-      "threshold": 0.5,
-      "roc_auc": 0.5977483106943172,
-      "pr_auc": 0.08210548679332592,
-      "f1": 0.14286255924170616,
-      "precision": 0.0857376899972695,
-      "recall": 0.4280845262440354,
-      "tn": 46975,
-      "fp": 20090,
-      "fn": 2517,
-      "tp": 1884
-    },
-    {
-      "model": "Logistic Regression - balanced",
-      "threshold": 0.5,
-      "roc_auc": 0.5979113752384716,
-      "pr_auc": 0.08179050093733548,
-      "f1": 0.14132797440839928,
-      "precision": 0.08622760484435993,
-      "recall": 0.391501931379232,
-      "tn": 48806,
-      "fp": 18259,
-      "fn": 2678,
-      "tp": 1723
-    },
     {
       "model": "XGBoost - weighted",
       "threshold": 0.5,
-      "roc_auc": 0.5935718895550008,
-      "pr_auc": 0.08294900289300552,
-      "f1": 0.14045908310548738,
-      "precision": 0.08165452999667319,
-      "recall": 0.5019313792319927,
-      "tn": 42221,
-      "fp": 24844,
-      "fn": 2192,
-      "tp": 2209
+      "roc_auc": 0.5935433975588226,
+      "pr_auc": 0.08191703237379974,
+      "f1": 0.1416915600338847,
+      "precision": 0.0881406700687819,
+      "recall": 0.3610543058395819,
+      "tn": 50626,
+      "fp": 16439,
+      "fn": 2812,
+      "tp": 1589
     },
     {
       "model": "XGBoost - weighted - tuned threshold",
       "threshold": 0.5,
-      "roc_auc": 0.5935718895550008,
-      "pr_auc": 0.08294900289300552,
-      "f1": 0.14045908310548738,
-      "precision": 0.08165452999667319,
-      "recall": 0.5019313792319927,
-      "tn": 42221,
-      "fp": 24844,
-      "fn": 2192,
-      "tp": 2209
+      "roc_auc": 0.5935433975588226,
+      "pr_auc": 0.08191703237379974,
+      "f1": 0.1416915600338847,
+      "precision": 0.0881406700687819,
+      "recall": 0.3610543058395819,
+      "tn": 50626,
+      "fp": 16439,
+      "fn": 2812,
+      "tp": 1589
+    },
+    {
+      "model": "Logistic Regression - balanced - tuned threshold",
+      "threshold": 0.4583544303797469,
+      "roc_auc": 0.5954761303258023,
+      "pr_auc": 0.08170316693979528,
+      "f1": 0.14074604962287976,
+      "precision": 0.08281124497991968,
+      "recall": 0.4685298795728244,
+      "tn": 44227,
+      "fp": 22838,
+      "fn": 2339,
+      "tp": 2062
+    },
+    {
+      "model": "Logistic Regression - balanced",
+      "threshold": 0.5,
+      "roc_auc": 0.5954761303258023,
+      "pr_auc": 0.08170316693979528,
+      "f1": 0.13593327321911633,
+      "precision": 0.0903844712583377,
+      "recall": 0.2740286298568507,
+      "tn": 54928,
+      "fp": 12137,
+      "fn": 3195,
+      "tp": 1206
+    },
+    {
+      "model": "Random Forest - balanced - tuned threshold",
+      "threshold": 0.4643037974683544,
+      "roc_auc": 0.5900702742151771,
+      "pr_auc": 0.08103652571552272,
+      "f1": 0.1341368382773131,
+      "precision": 0.08694773706896551,
+      "recall": 0.29334242217677803,
+      "tn": 53508,
+      "fp": 13557,
+      "fn": 3110,
+      "tp": 1291
     },
     {
       "model": "Global CTR probability baseline",
-      "threshold": 0.06872966247687105,
+      "threshold": 0.07037333333333333,
       "roc_auc": 0.5,
       "pr_auc": 0.06158173117286542,
       "f1": 0.1160188224129068,
@@ -100,6 +89,19 @@
       "fp": 67065,
       "fn": 0,
       "tp": 4401
+    },
+    {
+      "model": "Random Forest - balanced",
+      "threshold": 0.5,
+      "roc_auc": 0.5900702742151771,
+      "pr_auc": 0.08103652571552272,
+      "f1": 0.10488091423688989,
+      "precision": 0.09895203546956872,
+      "recall": 0.11156555328334469,
+      "tn": 62594,
+      "fp": 4471,
+      "fn": 3910,
+      "tp": 491
     },
     {
       "model": "Always non-click baseline",
@@ -119,45 +121,45 @@
     {
       "model": "Baseline raw + temporal - tuned threshold",
       "threshold": 0.4762025316455696,
-      "roc_auc": 0.5490890396140727,
-      "pr_auc": 0.07034503056010889,
-      "f1": 0.12528917886199994,
-      "precision": 0.07073671852069269,
-      "recall": 0.5476028175414679,
-      "tn": 35405,
-      "fp": 31660,
-      "fn": 1991,
-      "tp": 2410
+      "roc_auc": 0.530088264541654,
+      "pr_auc": 0.06762720165943059,
+      "f1": 0.11953741093892048,
+      "precision": 0.06590050818219964,
+      "recall": 0.64235401045217,
+      "tn": 26994,
+      "fp": 40071,
+      "fn": 1574,
+      "tp": 2827
     },
     {
       "model": "+ Interaction history counts - tuned threshold",
-      "threshold": 0.4762025316455696,
-      "roc_auc": 0.5902243603670523,
-      "pr_auc": 0.07921647764739684,
-      "f1": 0.13788026032923992,
-      "precision": 0.07920557585600217,
-      "recall": 0.5319245625994092,
-      "tn": 39850,
-      "fp": 27215,
-      "fn": 2060,
-      "tp": 2341
+      "threshold": 0.4881012658227848,
+      "roc_auc": 0.5759112818293113,
+      "pr_auc": 0.07623717086413974,
+      "f1": 0.13143946317136218,
+      "precision": 0.07425216826951443,
+      "recall": 0.5719154737559645,
+      "tn": 35684,
+      "fp": 31381,
+      "fn": 1884,
+      "tp": 2517
     },
     {
       "model": "+ Leakage-safe historical CTR - tuned threshold",
-      "threshold": 0.4881012658227848,
-      "roc_auc": 0.5979113752384716,
-      "pr_auc": 0.08179050093733548,
-      "f1": 0.14363153232949513,
-      "precision": 0.08508226997985224,
-      "recall": 0.46057714155873664,
-      "tn": 45268,
-      "fp": 21797,
-      "fn": 2374,
-      "tp": 2027
+      "threshold": 0.4583544303797469,
+      "roc_auc": 0.5954761303258023,
+      "pr_auc": 0.08170316693979528,
+      "f1": 0.14074604962287976,
+      "precision": 0.08281124497991968,
+      "recall": 0.4685298795728244,
+      "tn": 44227,
+      "fp": 22838,
+      "fn": 2339,
+      "tp": 2062
     }
   ],
-  "best_model": "Logistic Regression - balanced",
-  "best_threshold": 0.4881012658227848,
+  "best_model": "XGBoost - weighted",
+  "best_threshold": 0.5,
   "smote_comparison": {
     "method": "Class weighting selected over SMOTE",
     "note": "SMOTENC was not executed because imblearn is not installed. The notebook avoids invalid interpolation of one-hot categorical features.",
@@ -356,64 +358,64 @@
   ],
   "feature_importance": [
     {
-      "feature": "user_product_hist_ctr",
-      "importance": 0.011554109241163521
+      "feature": "num__user_product_hist_impressions",
+      "importance": 0.04232453554868698
     },
     {
-      "feature": "webpage_product_hist_clicks",
-      "importance": 0.006473650112544564
+      "feature": "num__webpage_product_hist_ctr",
+      "importance": 0.03222135454416275
     },
     {
-      "feature": "user_product_hist_clicks",
-      "importance": 0.005245889439808138
+      "feature": "num__user_product_hist_ctr",
+      "importance": 0.02492627687752247
     },
     {
-      "feature": "campaign_product_hist_impressions",
-      "importance": 0.0031573000542299743
+      "feature": "num__campaign_product_hist_ctr",
+      "importance": 0.024140698835253716
     },
     {
-      "feature": "user_product_hist_impressions",
-      "importance": 0.0030478200438240574
+      "feature": "num__user_product_hist_clicks",
+      "importance": 0.022295620292425156
     },
     {
-      "feature": "webpage_product_hist_ctr",
-      "importance": 0.0023567568878075005
+      "feature": "num__campaign_id_hist_ctr",
+      "importance": 0.01837981678545475
     },
     {
-      "feature": "campaign_product_hist_ctr",
-      "importance": 0.0021326934395458955
+      "feature": "cat__campaign_id_405490",
+      "importance": 0.016287604346871376
     },
     {
-      "feature": "campaign_product_hist_clicks",
-      "importance": 0.0019318229545308985
+      "feature": "cat__campaign_id_404347",
+      "importance": 0.016244783997535706
     },
     {
-      "feature": "campaign_id_hist_ctr",
-      "importance": 0.001535364859580196
+      "feature": "cat__product_H",
+      "importance": 0.012845654040575027
     },
     {
-      "feature": "var_1",
-      "importance": 0.0008515260316510296
+      "feature": "cat__dayofweek_0",
+      "importance": 0.012825419194996357
     },
     {
-      "feature": "user_group_id_hist_ctr",
-      "importance": 0.0007697915340704695
+      "feature": "cat__product_category_2_146115.0",
+      "importance": 0.012781980447471142
     },
     {
-      "feature": "hour",
-      "importance": 0.0007404970475228858
+      "feature": "num__webpage_product_hist_clicks",
+      "importance": 0.01201191358268261
     },
     {
-      "feature": "age_level_hist_ctr",
-      "importance": 0.0006671576828448239
+      "feature": "cat__product_J",
+      "importance": 0.011941038072109222
     },
     {
-      "feature": "age_level",
-      "importance": 0.0005784693082260586
+      "feature": "cat__age_level_1.0",
+      "importance": 0.011568962596356869
     },
     {
-      "feature": "webpage_product_hist_impressions",
-      "importance": 0.0003780830350497977
+      "feature": "cat__product_G",
+      "importance": 0.011284802109003067
     }
   ],
   "business_mapping": [
@@ -427,7 +429,7 @@
     },
     {
       "Model insight": "High user-product historical CTR",
-      "Business action": "Personalize ad selection and bid higher"
+      "Business action": "Personalize ad selection and test targeted bid uplift"
     },
     {
       "Model insight": "Weekend uplift",
@@ -446,5 +448,6 @@
       "Business action": "Retrain and recalibrate thresholds"
     }
   ],
-  "performance_note": "Moderate discrimination; use as ranking/targeting aid, not a standalone automated decision system."
+  "performance_note": "Moderate discrimination and imperfect calibration; use scores as click-propensity rankings until calibrated.",
+  "final_training_note": "A 180K-row stratified sample was used for final model fitting to keep notebook execution practical; production should prefer full-history or distributed training."
 }

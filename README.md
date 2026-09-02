@@ -17,13 +17,14 @@ model comparisons, test predictions, and a compact submission PDF.
 [![Report](https://img.shields.io/badge/Submission-PDF-B91C1C)](reports/ad_click_prediction_case_study_submission.pdf)
 [![Last Commit](https://img.shields.io/github/last-commit/banshiAbp/ad-click-prediction)](https://github.com/banshiAbp/ad-click-prediction/commits/main)
 
-> **Verified outcome:** After correcting target leakage in historical CTR
-> features, the final temporal-holdout model selection favored
-> **Logistic Regression with class balancing and a tuned threshold**. It achieved
-> **ROC-AUC 0.598**, **PR-AUC 0.082**, **F1 0.144**, **recall 0.461**, and
-> **precision 0.085** on the latest-day validation window. These results show
-> moderate discrimination, so the model should be used as a ranking/targeting aid
-> rather than a standalone automated decision system.
+> **Verified outcome:** After correcting target leakage and separating threshold
+> tuning from final holdout evaluation, the final temporal-holdout model
+> selection favored **XGBoost with class weighting** by the predefined F1-based
+> rule. It achieved **ROC-AUC 0.594**, **PR-AUC 0.082**, **F1 0.142**,
+> **recall 0.361**, and **precision 0.088** on the untouched latest-day holdout.
+> These results show moderate discrimination, so the model should be used as a
+> click-propensity ranking aid rather than a standalone automated decision
+> system or a source of perfectly calibrated probabilities.
 
 ## Why This Project?
 
@@ -47,9 +48,9 @@ training footprint for real-time ad serving.
 - Leakage-safe cumulative historical CTR aggregates for products, campaigns, webpages, user groups, categories, and segments
 - Missing-value handling and categorical encoding inside reproducible sklearn pipelines
 - Comparison of always-negative/global-CTR baselines, balanced Logistic Regression, balanced Random Forest, and weighted XGBoost
-- Threshold tuning focused on F1 and recall for rare click detection
+- Threshold tuning performed on a separate temporal threshold-tuning day, with final metrics reported on the untouched latest-day holdout
 - Product CTR, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
-- Final session-level test predictions with click probabilities and predicted labels
+- Final session-level test predictions with click-propensity scores and predicted labels
 - Submission-ready PDF under both page and file-size limits
 
 ## Project Workflow
@@ -127,14 +128,16 @@ The repository now follows a clean, industry-style ML layout:
 
 | Model | Threshold | ROC-AUC | PR-AUC | F1 | Precision | Recall |
 |---|---:|---:|---:|---:|---:|---:|
-| **Logistic Regression - balanced - tuned threshold** | **0.488** | **0.598** | 0.082 | **0.144** | 0.085 | 0.461 |
-| Random Forest - balanced - tuned threshold | 0.488 | 0.598 | 0.082 | 0.143 | 0.084 | 0.490 |
-| XGBoost - weighted - tuned threshold | 0.500 | 0.594 | **0.083** | 0.141 | 0.082 | **0.502** |
+| **XGBoost - weighted** | **0.500** | 0.594 | **0.082** | **0.142** | 0.088 | 0.361 |
+| Logistic Regression - balanced - tuned threshold | 0.458 | **0.596** | 0.082 | 0.141 | 0.083 | **0.469** |
+| Random Forest - balanced - tuned threshold | 0.464 | 0.590 | 0.081 | 0.134 | 0.087 | 0.293 |
 
-The final selected model is the highest-F1 tuned-threshold classifier after the
-leakage-safe correction. XGBoost has slightly stronger PR-AUC and recall, while
-Logistic Regression has the best F1 and ROC-AUC in this run. Selection is based
-on the business need to balance precision and recall, not on ROC-AUC alone.
+The final selected model is the highest-F1 classifier after correcting leakage
+and separating threshold tuning from final holdout evaluation. The margin over
+Logistic Regression is small, while Logistic Regression has slightly higher
+ROC-AUC and recall. Therefore, the conclusion is intentionally cautious: either
+model could be viable depending on production priorities, and further live A/B
+testing should decide the operating policy.
 
 ## Business Questions Answered
 
@@ -192,7 +195,7 @@ thresholds and should be monitored for fairness, privacy, and drift.
 |---|---|
 | `ad_click_prediction_case_study.ipynb` | Executed consolidated notebook |
 | `reports/ad_click_prediction_case_study_submission.pdf` | Final submission PDF |
-| `outputs/ad_click_prediction_test_predictions.csv` | Test click probabilities and predicted labels |
+| `outputs/ad_click_prediction_test_predictions.csv` | Test click-propensity scores and predicted labels |
 | `outputs/ctr_artifacts.json` | Model metrics and business insight snapshot |
 | `assets/images/product_ctr.png` | Product CTR chart |
 | `assets/images/model_f1.png` | Model F1 comparison chart |
@@ -247,8 +250,9 @@ jupyter notebook ad_click_prediction_case_study.ipynb
 ```
 
 Run all cells from top to bottom. The notebook performs data preparation,
-feature engineering, model comparison, threshold tuning, business analysis,
-chart generation, and final test prediction export.
+leakage-safe feature engineering, baseline comparison, feature ablation,
+threshold tuning on a separate temporal split, final holdout evaluation,
+business analysis, chart generation, and final test prediction export.
 
 ## Repository Structure
 
@@ -280,10 +284,10 @@ chart generation, and final test prediction export.
 
 ## Strategic Recommendations
 
-- Rank impressions by predicted click probability and tune thresholds by campaign budget.
+- Rank impressions by estimated click propensity and tune thresholds by campaign budget.
 - Use bid multipliers for high-CTR product, webpage, campaign, and qualified profile segments.
 - Reserve more inventory for products with higher expected clicks per 100,000 impressions.
-- Monitor recall, precision, F1, PR-AUC, calibration, and feature drift weekly.
+- Monitor recall, precision, F1, PR-AUC, calibration, and feature drift weekly; calibrate probabilities before budget allocation.
 - Use SMOTENC only for categorical-aware oversampling experiments; prefer class weighting and threshold tuning for production refreshes.
 - A/B test personalized CTR features against a non-personalized baseline before deployment.
 
