@@ -48,7 +48,7 @@ training footprint for real-time ad serving.
 - Leakage-safe cumulative historical CTR aggregates for products, campaigns, webpages, user groups, categories, and segments
 - Missing-value handling and categorical encoding inside reproducible sklearn pipelines
 - Comparison of always-negative/global-CTR baselines, balanced Logistic Regression, balanced Random Forest, and weighted XGBoost
-- Threshold tuning performed on a separate temporal threshold-tuning day, with final metrics reported on the untouched latest-day holdout
+- Threshold tuning searched `0.01` to `0.99` on a separate temporal tuning day, with final metrics reported on the untouched latest-day holdout
 - Product CTR, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
 - Final session-level test predictions with click-propensity scores and predicted labels
 - Submission-ready PDF under both page and file-size limits
@@ -132,12 +132,14 @@ The repository now follows a clean, industry-style ML layout:
 | Logistic Regression - balanced - tuned threshold | 0.458 | **0.596** | 0.082 | 0.141 | 0.083 | **0.469** |
 | Random Forest - balanced - tuned threshold | 0.464 | 0.590 | 0.081 | 0.134 | 0.087 | 0.293 |
 
-The final selected model is the highest-F1 classifier after correcting leakage
-and separating threshold tuning from final holdout evaluation. The margin over
+The final selected model is the highest-F1 classifier after correcting leakage,
+separating threshold tuning from final holdout evaluation, and searching the full
+`0.01` to `0.99` threshold range. The margin over
 Logistic Regression is small, while Logistic Regression has slightly higher
 ROC-AUC and recall. Therefore, the conclusion is intentionally cautious: either
 model could be viable depending on production priorities, and further live A/B
-testing should decide the operating policy.
+testing should decide the operating policy. The XGBoost threshold remains `0.500`
+after the expanded search, confirming it is not merely the old upper-bound limit.
 
 ## Business Questions Answered
 
@@ -252,7 +254,7 @@ jupyter notebook ad_click_prediction_case_study.ipynb
 Run all cells from top to bottom. The notebook performs data preparation,
 leakage-safe feature engineering, baseline comparison, feature ablation,
 threshold tuning on a separate temporal split, final holdout evaluation,
-business analysis, chart generation, and final test prediction export.
+business analysis, chart generation, and final test prediction export. The final scoring model freezes the selected threshold and retrains the selected architecture on all labeled training history before scoring the test set.
 
 ## Repository Structure
 

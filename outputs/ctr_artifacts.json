@@ -40,16 +40,16 @@
     },
     {
       "model": "Logistic Regression - balanced - tuned threshold",
-      "threshold": 0.4583544303797469,
+      "threshold": 0.465,
       "roc_auc": 0.5954761303258023,
       "pr_auc": 0.08170316693979528,
-      "f1": 0.14074604962287976,
-      "precision": 0.08281124497991968,
-      "recall": 0.4685298795728244,
-      "tn": 44227,
-      "fp": 22838,
-      "fn": 2339,
-      "tp": 2062
+      "f1": 0.13945827232796487,
+      "precision": 0.08311880972119202,
+      "recall": 0.4328561690524881,
+      "tn": 46051,
+      "fp": 21014,
+      "fn": 2496,
+      "tp": 1905
     },
     {
       "model": "Logistic Regression - balanced",
@@ -66,16 +66,16 @@
     },
     {
       "model": "Random Forest - balanced - tuned threshold",
-      "threshold": 0.4643037974683544,
+      "threshold": 0.465,
       "roc_auc": 0.5900702742151771,
       "pr_auc": 0.08103652571552272,
-      "f1": 0.1341368382773131,
-      "precision": 0.08694773706896551,
-      "recall": 0.29334242217677803,
-      "tn": 53508,
-      "fp": 13557,
-      "fn": 3110,
-      "tp": 1291
+      "f1": 0.13435660218671153,
+      "precision": 0.08739656705190453,
+      "recall": 0.2903885480572597,
+      "tn": 53720,
+      "fp": 13345,
+      "fn": 3123,
+      "tp": 1278
     },
     {
       "model": "Global CTR probability baseline",
@@ -120,42 +120,42 @@
   "ablation": [
     {
       "model": "Baseline raw + temporal - tuned threshold",
-      "threshold": 0.4762025316455696,
+      "threshold": 0.48,
       "roc_auc": 0.530088264541654,
       "pr_auc": 0.06762720165943059,
-      "f1": 0.11953741093892048,
-      "precision": 0.06590050818219964,
-      "recall": 0.64235401045217,
-      "tn": 26994,
-      "fp": 40071,
-      "fn": 1574,
-      "tp": 2827
+      "f1": 0.11927508034016134,
+      "precision": 0.06598616419137923,
+      "recall": 0.6198591229266076,
+      "tn": 28451,
+      "fp": 38614,
+      "fn": 1673,
+      "tp": 2728
     },
     {
       "model": "+ Interaction history counts - tuned threshold",
-      "threshold": 0.4881012658227848,
+      "threshold": 0.515,
       "roc_auc": 0.5759112818293113,
       "pr_auc": 0.07623717086413974,
-      "f1": 0.13143946317136218,
-      "precision": 0.07425216826951443,
-      "recall": 0.5719154737559645,
-      "tn": 35684,
-      "fp": 31381,
-      "fn": 1884,
-      "tp": 2517
+      "f1": 0.13343553170926784,
+      "precision": 0.07818480043739748,
+      "recall": 0.45489661440581686,
+      "tn": 43461,
+      "fp": 23604,
+      "fn": 2399,
+      "tp": 2002
     },
     {
       "model": "+ Leakage-safe historical CTR - tuned threshold",
-      "threshold": 0.4583544303797469,
+      "threshold": 0.465,
       "roc_auc": 0.5954761303258023,
       "pr_auc": 0.08170316693979528,
-      "f1": 0.14074604962287976,
-      "precision": 0.08281124497991968,
-      "recall": 0.4685298795728244,
-      "tn": 44227,
-      "fp": 22838,
-      "fn": 2339,
-      "tp": 2062
+      "f1": 0.13945827232796487,
+      "precision": 0.08311880972119202,
+      "recall": 0.4328561690524881,
+      "tn": 46051,
+      "fp": 21014,
+      "fn": 2496,
+      "tp": 1905
     }
   ],
   "best_model": "XGBoost - weighted",
@@ -449,5 +449,5 @@
     }
   ],
   "performance_note": "Moderate discrimination and imperfect calibration; use scores as click-propensity rankings until calibrated.",
-  "final_training_note": "A 180K-row stratified sample was used for final model fitting to keep notebook execution practical; production should prefer full-history or distributed training."
+  "final_training_note": "The selected architecture and threshold are frozen after temporal validation; the final scoring model is retrained on all available labeled history before predicting the test set."
 }
