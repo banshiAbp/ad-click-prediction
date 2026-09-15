@@ -49,7 +49,7 @@ training footprint for real-time ad serving.
 - Missing-value handling and categorical encoding inside reproducible sklearn pipelines
 - Comparison of always-negative/global-CTR baselines, balanced Logistic Regression, balanced Random Forest, and weighted XGBoost
 - Threshold tuning searched `0.01` to `0.99` on a separate temporal tuning day, with final metrics reported on the untouched latest-day holdout
-- Product CTR, lift/gains, Precision@K, cost-threshold scenarios, cold-start analysis, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
+- Product CTR, lift/gains, Precision@K, business-value threshold scenarios, cold-start analysis, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
 - Final session-level test predictions with click-propensity scores and predicted labels
 - Submission-ready PDF under both page and file-size limits
 
@@ -210,6 +210,25 @@ larger test budgets, closer inventory monitoring, and faster creative iteration.
 High-propensity user profiles by age, gender, and city development index can
 inform bid adjustments. These recommendations should use minimum-volume
 thresholds and should be monitored for fairness, privacy, and drift.
+
+## Business Value Threshold Analysis
+
+The previous FP/FN-only cost framing was replaced with an ad-economics utility model:
+
+```text
+Expected utility = clicks captured ? value per click - served impressions ? cost per impression
+```
+
+Because the dataset does not include campaign revenue, CPC, CPM, or margin, these are scenario assumptions rather than measured financial truth. The resulting thresholds are more useful for business discussion because they show how serving strategy changes when clicks are more valuable or media is more expensive.
+
+| Scenario | Optimal threshold | Served impressions | Clicks captured | Recall | Expected utility |
+|---|---:|---:|---:|---:|---:|
+| Low click value / cheap media | 0.391 | 50,234 | 3,557 | 80.8% | 1,045.30 |
+| Base ad economics | 0.183 | 70,241 | 4,381 | 99.5% | 5,249.95 |
+| High click value | 0.134 | 70,872 | 4,396 | 99.9% | 18,436.40 |
+| Expensive media | 0.490 | 20,842 | 1,804 | 41.0% | 481.70 |
+
+This section is a sensitivity analysis, not a claim about actual campaign profit. Production thresholding should use advertiser-specific value-per-click and impression-cost economics.
 
 ## Generated Artifacts
 

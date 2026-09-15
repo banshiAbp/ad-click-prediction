@@ -652,42 +652,62 @@
       "lift": 1.4508269357951236
     }
   ],
-  "cost_thresholds": [
+  "business_value_thresholds": [
     {
-      "scenario": "Balanced FP/FN",
-      "fp_cost": 1,
-      "fn_cost": 1,
-      "optimal_threshold": 0.703,
-      "total_cost": 4401,
-      "fp": 0,
-      "fn": 4401,
-      "tp": 0,
-      "precision": 0.0,
-      "recall": 0.0
+      "scenario": "Low click value / cheap media",
+      "value_per_click": 1.0,
+      "cost_per_impression": 0.05,
+      "optimal_threshold": 0.391,
+      "served_impressions": 50234,
+      "clicks_captured": 3557,
+      "clicks_missed": 844,
+      "precision": 0.07080861567862404,
+      "recall": 0.8082254033174279,
+      "expected_utility": 1045.2999999999997,
+      "utility_per_1k_impressions": 14.626535695295662,
+      "clicks_captured_pct": 0.8082254033174279
     },
     {
-      "scenario": "Wasted impressions expensive",
-      "fp_cost": 2,
-      "fn_cost": 1,
-      "optimal_threshold": 0.703,
-      "total_cost": 4401,
-      "fp": 0,
-      "fn": 4401,
-      "tp": 0,
-      "precision": 0.0,
-      "recall": 0.0
+      "scenario": "Base ad economics",
+      "value_per_click": 2.0,
+      "cost_per_impression": 0.05,
+      "optimal_threshold": 0.183,
+      "served_impressions": 70241,
+      "clicks_captured": 4381,
+      "clicks_missed": 20,
+      "precision": 0.0623709799120172,
+      "recall": 0.9954555782776642,
+      "expected_utility": 5249.95,
+      "utility_per_1k_impressions": 73.46080653737441,
+      "clicks_captured_pct": 0.9954555782776642
     },
     {
-      "scenario": "Missed clicks expensive",
-      "fp_cost": 1,
-      "fn_cost": 2,
-      "optimal_threshold": 0.703,
-      "total_cost": 8802,
-      "fp": 0,
-      "fn": 4401,
-      "tp": 0,
-      "precision": 0.0,
-      "recall": 0.0
+      "scenario": "High click value",
+      "value_per_click": 5.0,
+      "cost_per_impression": 0.05,
+      "optimal_threshold": 0.134,
+      "served_impressions": 70872,
+      "clicks_captured": 4396,
+      "clicks_missed": 5,
+      "precision": 0.06202731685291794,
+      "recall": 0.998863894569416,
+      "expected_utility": 18436.4,
+      "utility_per_1k_impressions": 257.97442140318475,
+      "clicks_captured_pct": 0.998863894569416
+    },
+    {
+      "scenario": "Expensive media",
+      "value_per_click": 2.0,
+      "cost_per_impression": 0.15,
+      "optimal_threshold": 0.49,
+      "served_impressions": 20842,
+      "clicks_captured": 1804,
+      "clicks_missed": 2597,
+      "precision": 0.08655599270703387,
+      "recall": 0.40990683935469213,
+      "expected_utility": 481.7000000000003,
+      "utility_per_1k_impressions": 6.740268099515857,
+      "clicks_captured_pct": 0.40990683935469213
     }
   ],
   "bootstrap_ci": [
