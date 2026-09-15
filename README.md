@@ -192,11 +192,13 @@ campaign rules.
 
 ### SMOTE Trade-Off
 
-The notebook does not interpolate one-hot encoded categorical features because
-that would create invalid synthetic category mixtures. If oversampling is used,
-it should be done with a categorical-aware method such as SMOTENC before one-hot
-encoding. Since class weighting is simpler and avoids synthetic categorical
-records, it remains the preferred first-line training strategy.
+A controlled SMOTENC experiment is now included. SMOTENC is applied before one-hot
+encoding so categorical variables are not interpolated into invalid mixtures.
+On a 50K-row controlled sample, SMOTENC reduced false negatives by **21.7%**
+versus class weighting, but increased sampled training rows by **14.1%**, took
+longer to train, produced nearly identical F1, and had lower PR-AUC. Therefore,
+SMOTENC is useful when recall is the dominant objective, while class weighting
+remains the simpler default strategy.
 
 ### Inventory Planning Signal
 
@@ -210,6 +212,17 @@ larger test budgets, closer inventory monitoring, and faster creative iteration.
 High-propensity user profiles by age, gender, and city development index can
 inform bid adjustments. These recommendations should use minimum-volume
 thresholds and should be monitored for fairness, privacy, and drift.
+
+## SMOTENC Experiment
+
+To directly answer the assignment's SMOTE question, the notebook now compares class weighting against categorical-aware SMOTENC on the same controlled sample. Ordinary SMOTE after one-hot encoding is intentionally avoided.
+
+| Strategy | Training rows | Precision | Recall | F1 | PR-AUC | False negatives | Training time |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| Class weighting | 50,000 | 0.071 | 0.518 | 0.125 | 0.076 | 2,120 | 9.6 sec |
+| SMOTENC | 57,038 | 0.070 | 0.623 | 0.125 | 0.073 | 1,659 | 14.9 sec |
+
+SMOTENC reduced false negatives by **21.7%**, but increased training rows by **14.1%** and training time by roughly **56%**. Because F1 was almost unchanged and PR-AUC decreased, class weighting remains the preferred default unless the campaign explicitly prioritizes missed-click reduction over ranking quality and training cost.
 
 ## Business Value Threshold Analysis
 
@@ -282,7 +295,7 @@ source .venv/bin/activate
 ### 3. Install dependencies
 
 ```bash
-pip install pandas numpy scikit-learn xgboost matplotlib seaborn pypdf nbformat nbconvert jupyter
+pip install pandas numpy scikit-learn imbalanced-learn xgboost matplotlib seaborn statsmodels pypdf nbformat nbconvert jupyter
 ```
 
 ### 4. Run the complete case study

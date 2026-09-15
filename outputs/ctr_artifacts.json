@@ -160,11 +160,6 @@
   ],
   "best_model": "XGBoost - weighted",
   "best_threshold": 0.5,
-  "smote_comparison": {
-    "method": "Class weighting selected over SMOTE",
-    "note": "SMOTENC was not executed because imblearn is not installed. The notebook avoids invalid interpolation of one-hot categorical features.",
-    "reason": "Class weighting improves rare-click sensitivity without generating synthetic categorical records or increasing the training matrix size."
-  },
   "weekend": [
     {
       "is_weekend": 0,
@@ -710,6 +705,35 @@
       "clicks_captured_pct": 0.40990683935469213
     }
   ],
+  "smotenc_comparison": [
+    {
+      "strategy": "Class weighting",
+      "training_rows_after_sampling": 50000,
+      "precision": 0.07126120778531038,
+      "recall": 0.5182912974324018,
+      "f1": 0.12529524855808843,
+      "pr_auc": 0.0761609089533751,
+      "false_negatives": 2120,
+      "training_time_sec": 9.552222299971618,
+      "threshold": 0.47
+    },
+    {
+      "strategy": "SMOTENC",
+      "training_rows_after_sampling": 57038,
+      "precision": 0.06972486395768702,
+      "recall": 0.6230402181322426,
+      "f1": 0.12541450362476272,
+      "pr_auc": 0.07254341893498684,
+      "false_negatives": 1659,
+      "training_time_sec": 14.922970000072382,
+      "threshold": 0.154
+    }
+  ],
+  "smote_summary": {
+    "fn_reduction_pct": 21.745283018867926,
+    "training_rows_increase_pct": 14.076,
+    "conclusion": "SMOTENC is preferred only if false-negative reduction justifies added training volume; otherwise class weighting is simpler."
+  },
   "bootstrap_ci": [
     {
       "model": "Logistic Regression - balanced",
