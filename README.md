@@ -226,20 +226,22 @@ SMOTENC reduced false negatives by **21.7%**, but increased training rows by **1
 
 ## Business Value Threshold Analysis
 
-The previous FP/FN-only cost framing was replaced with an ad-economics utility model:
+Business thresholds are now selected on the July 6 threshold-tuning split and then evaluated, frozen, on the untouched July 7 holdout. This preserves the same temporal discipline used for F1 threshold tuning.
+
+The utility model is:
 
 ```text
 Expected utility = clicks captured ? value per click - served impressions ? cost per impression
 ```
 
-Because the dataset does not include campaign revenue, CPC, CPM, or margin, these are scenario assumptions rather than measured financial truth. The resulting thresholds are more useful for business discussion because they show how serving strategy changes when clicks are more valuable or media is more expensive.
+Because the dataset does not include campaign revenue, CPC, CPM, or margin, these are scenario assumptions rather than measured financial truth.
 
-| Scenario | Optimal threshold | Served impressions | Clicks captured | Recall | Expected utility |
+| Scenario | Frozen threshold | Holdout served impressions | Holdout clicks captured | Holdout recall | Holdout expected utility |
 |---|---:|---:|---:|---:|---:|
-| Low click value / cheap media | 0.391 | 50,234 | 3,557 | 80.8% | 1,045.30 |
-| Base ad economics | 0.183 | 70,241 | 4,381 | 99.5% | 5,249.95 |
-| High click value | 0.134 | 70,872 | 4,396 | 99.9% | 18,436.40 |
-| Expensive media | 0.490 | 20,842 | 1,804 | 41.0% | 481.70 |
+| Low click value / cheap media | 0.416 | 43,489 | 3,195 | 72.6% | 1,020.55 |
+| Base ad economics | 0.213 | 69,524 | 4,363 | 99.1% | 5,249.80 |
+| High click value | 0.114 | 70,981 | 4,397 | 99.9% | 18,435.95 |
+| Expensive media | 0.500 | 18,028 | 1,589 | 36.1% | 473.80 |
 
 This section is a sensitivity analysis, not a claim about actual campaign profit. Production thresholding should use advertiser-specific value-per-click and impression-cost economics.
 
