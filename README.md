@@ -49,7 +49,7 @@ training footprint for real-time ad serving.
 - Missing-value handling and categorical encoding inside reproducible sklearn pipelines
 - Comparison of always-negative/global-CTR baselines, balanced Logistic Regression, balanced Random Forest, and weighted XGBoost
 - Threshold tuning searched `0.01` to `0.99` on a separate temporal tuning day, with final metrics reported on the untouched latest-day holdout
-- Product CTR, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
+- Product CTR, lift/gains, Precision@K, cost-threshold scenarios, cold-start analysis, profile CTR with confidence intervals, feature ablation, individual feature importance, inventory-planning, and bidding-strategy insights
 - Final session-level test predictions with click-propensity scores and predicted labels
 - Submission-ready PDF under both page and file-size limits
 
@@ -141,6 +141,26 @@ model could be viable depending on production priorities, and further live A/B
 testing should decide the operating policy. The XGBoost threshold remains `0.500`
 after the expanded search, confirming it is not merely the old upper-bound limit.
 
+## Decision-Oriented Ranking Evaluation
+
+Because the model is best used as a click-propensity ranking aid, the notebook now includes lift/gains and Precision@K analysis. On the untouched holdout:
+
+| Serving group | Actual CTR | Lift vs baseline | Clicks captured |
+|---|---:|---:|---:|
+| Top 10% | **9.25%** | **1.50x** | **15.0%** |
+| Top 20% | 8.93% | 1.45x | 29.0% |
+
+Precision@K translates the ranking score into budget-constrained serving decisions:
+
+| Budget slice | Precision@K | Recall@K | Lift |
+|---|---:|---:|---:|
+| Top 1% | 10.36% | 1.68% | 1.68x |
+| Top 5% | 9.29% | 7.54% | 1.51x |
+| Top 10% | 9.25% | 15.02% | 1.50x |
+| Top 20% | 8.93% | 29.02% | 1.45x |
+
+This is more actionable than accuracy alone: advertisers can decide how much inventory to serve based on expected lift and click capture.
+
 ## Business Questions Answered
 
 ### Weekend vs Weekday Users
@@ -207,6 +227,7 @@ thresholds and should be monitored for fairness, privacy, and drift.
 | `assets/images/pr_curve.png` | Precision-recall curve |
 | `assets/images/roc_curve.png` | ROC curve |
 | `assets/images/calibration_plot.png` | Calibration plot |
+| `assets/images/production_lifecycle.png` | Production lifecycle diagram |
 
 Submission PDF checks:
 
@@ -268,6 +289,7 @@ business analysis, chart generation, and final test prediction export. The final
 |   `-- images/
 |       |-- project_banner.png
 |       |-- calibration_plot.png
+|       |-- production_lifecycle.png
 |       |-- feature_ablation.png
 |       |-- feature_importance.png
 |       |-- model_f1.png

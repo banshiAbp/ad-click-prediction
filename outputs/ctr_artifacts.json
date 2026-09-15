@@ -436,7 +436,7 @@
       "Business action": "Test weekend bid modifier before permanent adoption"
     },
     {
-      "Model insight": "High predicted probability",
+      "Model insight": "High predicted click propensity",
       "Business action": "Prioritize impression under budget constraints"
     },
     {
@@ -446,6 +446,333 @@
     {
       "Model insight": "Model drift",
       "Business action": "Retrain and recalibrate thresholds"
+    }
+  ],
+  "data_quality": [
+    {
+      "Data check": "Training observations",
+      "Result": 463291
+    },
+    {
+      "Data check": "Test observations",
+      "Result": 128858
+    },
+    {
+      "Data check": "Clicks",
+      "Result": 31331
+    },
+    {
+      "Data check": "Non-clicks",
+      "Result": 431960
+    },
+    {
+      "Data check": "Click rate",
+      "Result": "6.76%"
+    },
+    {
+      "Data check": "Duplicate rows",
+      "Result": 0
+    },
+    {
+      "Data check": "Total missing cells",
+      "Result": 563955
+    },
+    {
+      "Data check": "Unique products",
+      "Result": 10
+    },
+    {
+      "Data check": "Unique campaigns",
+      "Result": 10
+    },
+    {
+      "Data check": "Unique webpages",
+      "Result": 9
+    },
+    {
+      "Data check": "Date range",
+      "Result": "2017-07-02 00:00:00 to 2017-07-07 23:59:00"
+    }
+  ],
+  "missing_summary": [
+    {
+      "field": "product_category_2",
+      "missing_pct": 78.96851007250302
+    },
+    {
+      "field": "city_development_index",
+      "missing_pct": 27.008726696611852
+    },
+    {
+      "field": "gender",
+      "missing_pct": 3.937697904772594
+    },
+    {
+      "field": "user_group_id",
+      "missing_pct": 3.937697904772594
+    },
+    {
+      "field": "age_level",
+      "missing_pct": 3.937697904772594
+    },
+    {
+      "field": "user_depth",
+      "missing_pct": 3.937697904772594
+    }
+  ],
+  "decile_lift": [
+    {
+      "decile": "Top 0-10%",
+      "impressions": 7147,
+      "clicks": 661,
+      "actual_ctr": 0.0924863579124108,
+      "avg_score": 0.5717945098876953,
+      "lift_vs_baseline": 1.5018473198292095,
+      "clicks_captured_pct": 0.15019313792319927,
+      "cumulative_clicks_captured_pct": 0.15019313792319927
+    },
+    {
+      "decile": "Top 10-20%",
+      "impressions": 7147,
+      "clicks": 616,
+      "actual_ctr": 0.08619000979431929,
+      "avg_score": 0.5291107296943665,
+      "lift_vs_baseline": 1.399603553728885,
+      "clicks_captured_pct": 0.13996818904794364,
+      "cumulative_clicks_captured_pct": 0.29016132697114294
+    },
+    {
+      "decile": "Top 20-30%",
+      "impressions": 7146,
+      "clicks": 568,
+      "actual_ctr": 0.07948502658830114,
+      "avg_score": 0.5008744597434998,
+      "lift_vs_baseline": 1.290724133187805,
+      "clicks_captured_pct": 0.12906157691433764,
+      "cumulative_clicks_captured_pct": 0.41922290388548056
+    },
+    {
+      "decile": "Top 30-40%",
+      "impressions": 7147,
+      "clicks": 479,
+      "actual_ctr": 0.06702112774590738,
+      "avg_score": 0.4780829846858978,
+      "lift_vs_baseline": 1.0883280880456752,
+      "clicks_captured_pct": 0.1088389002499432,
+      "cumulative_clicks_captured_pct": 0.5280618041354238
+    },
+    {
+      "decile": "Top 40-50%",
+      "impressions": 7146,
+      "clicks": 443,
+      "actual_ctr": 0.061992723201791215,
+      "avg_score": 0.4547213017940521,
+      "lift_vs_baseline": 1.0066739278207706,
+      "clicks_captured_pct": 0.1006589411497387,
+      "cumulative_clicks_captured_pct": 0.6287207452851624
+    },
+    {
+      "decile": "Top 50-60%",
+      "impressions": 7147,
+      "clicks": 399,
+      "actual_ctr": 0.05582761998041136,
+      "avg_score": 0.4309295117855072,
+      "lift_vs_baseline": 0.9065613927562095,
+      "clicks_captured_pct": 0.09066121336059986,
+      "cumulative_clicks_captured_pct": 0.7193819586457624
+    },
+    {
+      "decile": "Top 60-70%",
+      "impressions": 7146,
+      "clicks": 379,
+      "actual_ctr": 0.053036663867898126,
+      "avg_score": 0.405050128698349,
+      "lift_vs_baseline": 0.8612402226728488,
+      "clicks_captured_pct": 0.08611679163826404,
+      "cumulative_clicks_captured_pct": 0.8054987502840264
+    },
+    {
+      "decile": "Top 70-80%",
+      "impressions": 7147,
+      "clicks": 351,
+      "actual_ctr": 0.049111515321113755,
+      "avg_score": 0.3760415017604828,
+      "lift_vs_baseline": 0.7975013755825303,
+      "clicks_captured_pct": 0.07975460122699386,
+      "cumulative_clicks_captured_pct": 0.8852533515110202
+    },
+    {
+      "decile": "Top 80-90%",
+      "impressions": 7146,
+      "clicks": 278,
+      "actual_ctr": 0.038902882731598094,
+      "avg_score": 0.3338474631309509,
+      "lift_vs_baseline": 0.6317276567362848,
+      "clicks_captured_pct": 0.06316746194046807,
+      "cumulative_clicks_captured_pct": 0.9484208134514883
+    },
+    {
+      "decile": "Top 90-100%",
+      "impressions": 7147,
+      "clicks": 227,
+      "actual_ctr": 0.03176157828459494,
+      "avg_score": 0.23522208631038666,
+      "lift_vs_baseline": 0.5157629978838586,
+      "clicks_captured_pct": 0.0515791865485117,
+      "cumulative_clicks_captured_pct": 1.0
+    }
+  ],
+  "precision_at_k": [
+    {
+      "targeted_impressions": "Top 1%",
+      "impressions_served": 714,
+      "precision_at_k": 0.10364145658263306,
+      "recall_at_k": 0.01681436037264258,
+      "lift": 1.6829903058701328
+    },
+    {
+      "targeted_impressions": "Top 5%",
+      "impressions_served": 3573,
+      "precision_at_k": 0.09291911558914077,
+      "recall_at_k": 0.07543740059077482,
+      "lift": 1.5088746909096875
+    },
+    {
+      "targeted_impressions": "Top 10%",
+      "impressions_served": 7146,
+      "precision_at_k": 0.09249930030786455,
+      "recall_at_k": 0.15019313792319927,
+      "lift": 1.5020574859808788
+    },
+    {
+      "targeted_impressions": "Top 20%",
+      "impressions_served": 14293,
+      "precision_at_k": 0.08934443433848738,
+      "recall_at_k": 0.29016132697114294,
+      "lift": 1.4508269357951236
+    }
+  ],
+  "cost_thresholds": [
+    {
+      "scenario": "Balanced FP/FN",
+      "fp_cost": 1,
+      "fn_cost": 1,
+      "optimal_threshold": 0.703,
+      "total_cost": 4401,
+      "fp": 0,
+      "fn": 4401,
+      "tp": 0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "scenario": "Wasted impressions expensive",
+      "fp_cost": 2,
+      "fn_cost": 1,
+      "optimal_threshold": 0.703,
+      "total_cost": 4401,
+      "fp": 0,
+      "fn": 4401,
+      "tp": 0,
+      "precision": 0.0,
+      "recall": 0.0
+    },
+    {
+      "scenario": "Missed clicks expensive",
+      "fp_cost": 1,
+      "fn_cost": 2,
+      "optimal_threshold": 0.703,
+      "total_cost": 8802,
+      "fp": 0,
+      "fn": 4401,
+      "tp": 0,
+      "precision": 0.0,
+      "recall": 0.0
+    }
+  ],
+  "bootstrap_ci": [
+    {
+      "model": "Logistic Regression - balanced",
+      "f1": 0.13945827232796487,
+      "f1_ci_low": 0.1344829558256708,
+      "f1_ci_high": 0.14391675770471374,
+      "pr_auc": 0.08170316693979528,
+      "pr_auc_ci_low": 0.07847274479734141,
+      "pr_auc_ci_high": 0.08531223446652796
+    },
+    {
+      "model": "Random Forest - balanced",
+      "f1": 0.13435660218671153,
+      "f1_ci_low": 0.12738273393413382,
+      "f1_ci_high": 0.1401955327302129,
+      "pr_auc": 0.08103652571552272,
+      "pr_auc_ci_low": 0.07725435699700207,
+      "pr_auc_ci_high": 0.08471196622987245
+    },
+    {
+      "model": "XGBoost - weighted",
+      "f1": 0.1416915600338847,
+      "f1_ci_low": 0.13519489040073468,
+      "f1_ci_high": 0.14786047992521026,
+      "pr_auc": 0.08191703237379974,
+      "pr_auc_ci_low": 0.07810591586638874,
+      "pr_auc_ci_high": 0.08568861982633083
+    }
+  ],
+  "cold_start": [
+    {
+      "feature": "user_product",
+      "segment": "known_history",
+      "impressions": 35923,
+      "share_of_holdout": 0.5026586068899896,
+      "ctr": 0.049522589984132726,
+      "roc_auc": 0.5900682418752994,
+      "pr_auc": 0.06732873244771748
+    },
+    {
+      "feature": "user_product",
+      "segment": "cold_start",
+      "impressions": 35543,
+      "share_of_holdout": 0.49734139311001035,
+      "ctr": 0.07376979996061109,
+      "roc_auc": 0.5624953327118701,
+      "pr_auc": 0.08815838557373742
+    },
+    {
+      "feature": "campaign_product",
+      "segment": "known_history",
+      "impressions": 71114,
+      "share_of_holdout": 0.9950745809195981,
+      "ctr": 0.061549062069353434,
+      "roc_auc": 0.5937487390145412,
+      "pr_auc": 0.08191404867378446
+    },
+    {
+      "feature": "campaign_product",
+      "segment": "cold_start",
+      "impressions": 352,
+      "share_of_holdout": 0.0049254190804018695,
+      "ctr": 0.06818181818181818,
+      "roc_auc": 0.5447154471544715,
+      "pr_auc": 0.09489512693606673
+    },
+    {
+      "feature": "webpage_product",
+      "segment": "known_history",
+      "impressions": 71114,
+      "share_of_holdout": 0.9950745809195981,
+      "ctr": 0.061549062069353434,
+      "roc_auc": 0.5937487390145412,
+      "pr_auc": 0.08191404867378446
+    },
+    {
+      "feature": "webpage_product",
+      "segment": "cold_start",
+      "impressions": 352,
+      "share_of_holdout": 0.0049254190804018695,
+      "ctr": 0.06818181818181818,
+      "roc_auc": 0.5447154471544715,
+      "pr_auc": 0.09489512693606673
     }
   ],
   "performance_note": "Moderate discrimination and imperfect calibration; use scores as click-propensity rankings until calibrated.",
